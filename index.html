@@ -12,6 +12,7 @@
 <script type="text/javascript">
 
     let device;
+    let vendorId;
 
     navigator.usb.addEventListener('connect', event => {
         // Add |event.device| to the UI.
@@ -19,20 +20,6 @@
         console.log(event.device.vendorId);
         console.log(event);
         device = event.device;
-
-        let selectConfiguration = device.selectConfiguration(1);
-        let claimInterface = device.claimInterface(2);
-        let controlTransferOut = device.controlTransferOut({
-            requestType: 'class',
-            recipient: 'interface',
-            request: 0x22,
-            value: 0x01,
-            index: 0x02
-        });
-        let transferIn = device.transferIn(5, 64);
-        let decoder = new TextDecoder();
-        console.log('Received: ' + decoder.decode(device.data));
-  
     });
 
     navigator.usb.addEventListener('disconnect', event => {
@@ -41,21 +28,23 @@
         console.log(event.device.vendorId);
         console.log(event);
         console.log(device);
+        vendorId = event.device.vendorId;
     });
 
     let button = document.getElementById('request-device');
     button.addEventListener('click', async () => {
-        // try {
-        //     device = await navigator.usb.requestDevice({
-        //         filters: [{
-        //             vendorId: 34148
-        //         }]
-        //     });
-        // } catch (err) {
-        //     // No device was selected.
-        //     console.log('request-device err');
-        //     console.log(err);
-        // }
+        try {
+            navigator.usb.requestDevice({ filters: [{ vendorId: vendorId }] })
+            .then(device => {
+              console.log(device.productName);      //
+              console.log(device.manufacturerName); //
+            })
+            .catch(error => { console.log(error); });
+        } catch (err) {
+            // No device was selected.
+            console.log('request-device err');
+            console.log(err);
+        }
 
         if (device !== undefined) {
             // Add |device| to the UI.
