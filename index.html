@@ -18,14 +18,6 @@
         console.log('1');
         console.log(event.device.vendorId);
         console.log(event);
-    });
-
-    navigator.usb.addEventListener('disconnect', event => {
-        // Remove |event.device| from the UI.
-        console.log('2-------------');
-        console.log(event.device.vendorId);
-        console.log(event);
-        console.log(device);
         device.then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
             .then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
             .then(() => device.controlTransferOut({
@@ -45,6 +37,13 @@
             });
     });
 
+    navigator.usb.addEventListener('disconnect', event => {
+        // Remove |event.device| from the UI.
+        console.log('2-------------');
+        console.log(event.device.vendorId);
+        console.log(event);
+        console.log(device);
+    });
 
     let button = document.getElementById('request-device');
     button.addEventListener('click', async () => {
