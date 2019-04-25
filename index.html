@@ -6,7 +6,7 @@
 </head>
 <body>
 <iframe allowpaymentrequest allow="usb fullscreen"></iframe>
-TEST 4
+TEST 5
 <button id="request-device">Connect</button>
 </body>
 
@@ -44,13 +44,16 @@ TEST 4
               return device.open();
             })
               .then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
-              .then(() => device.claimInterface(0)) // Request exclusive control over interface #2.
-              //.then(() => device.controlTransferOut({
-              //    requestType: 'class',
-              //    recipient: 'interface',
-              //    request: 0x22,
-              //    value: 0x01,
-              //    index: 0x02})) // Ready to receive data
+              //.then(() => device.claimInterface(0)) // Request exclusive control over interface #2.
+                                                    // claimInterface() 는 아래와 같은 오류가 발생
+                                                    // An attempt to claim a USB device interface has been blocked because it implements a protected interface class.
+                                                    // https://stackoverflow.com/questions/54289929/usb-device-interface-has-been-blocked
+              .then(() => device.controlTransferOut({
+                  requestType: 'class',
+                  recipient: 'interface',
+                  request: 0x22,
+                  value: 0x01,
+                  index: 0x02})) // Ready to receive data
               //.then(() => device.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
               //.then(result => {
               //  let decoder = new TextDecoder();
