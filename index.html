@@ -54,7 +54,7 @@ TEST 4
               //    request: 0x22,
               //    value: 0x01,
               //    index: 0x02})) // Ready to receive data
-              //.then(() => device.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
+              .then(() => device.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
               .then(result => {
                 let decoder = new TextDecoder();
                 console.log(result);
