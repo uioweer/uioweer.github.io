@@ -18,6 +18,7 @@
         navigator.usb.requestDevice({ filters: [{ vendorId: 34148 }] })
             .then(selectedDevice => {
                 device = selectedDevice;
+                console.log(device);
                 return device.open(); // Begin a session.
             })
             .then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
@@ -39,11 +40,15 @@
     navigator.usb.addEventListener('connect', event => {
         // Add |event.device| to the UI.
         console.log('1');
+        console.log(event.device);
+        console.log(event);
     });
 
     navigator.usb.addEventListener('disconnect', event => {
         // Remove |event.device| from the UI.
         console.log('2');
+        console.log(event.device);
+        console.log(event);
     });
 
 
