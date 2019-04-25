@@ -11,9 +11,15 @@
 
 <script type="text/javascript">
 
-    var device;
+    let device;
 
-    navigator.usb.requestDevice({ filters: [{ vendorId: 0x2341 }] })
+    navigator.usb.requestDevice({ filters: [] }).then(function (device) {
+
+        console.log(device);
+
+    });
+
+    navigator.usb.requestDevice({ filters: [{ vendorId: 34148 }] })
         .then(selectedDevice => {
             device = selectedDevice;
             return device.open(); // Begin a session.
