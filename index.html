@@ -18,6 +18,7 @@
         console.log('1');
         console.log(event.device.vendorId);
         console.log(event);
+        device = event.device;
         device.then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
             .then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
             .then(() => device.controlTransferOut({
@@ -47,17 +48,17 @@
 
     let button = document.getElementById('request-device');
     button.addEventListener('click', async () => {
-        try {
-            device = await navigator.usb.requestDevice({
-                filters: [{
-                    vendorId: 34148
-                }]
-            });
-        } catch (err) {
-            // No device was selected.
-            console.log('request-device err');
-            console.log(err);
-        }
+        // try {
+        //     device = await navigator.usb.requestDevice({
+        //         filters: [{
+        //             vendorId: 34148
+        //         }]
+        //     });
+        // } catch (err) {
+        //     // No device was selected.
+        //     console.log('request-device err');
+        //     console.log(err);
+        // }
 
         if (device !== undefined) {
             // Add |device| to the UI.
