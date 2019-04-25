@@ -40,14 +40,14 @@
     navigator.usb.addEventListener('connect', event => {
         // Add |event.device| to the UI.
         console.log('1');
-        console.log(event.device);
+        console.log(event.device.vendorId);
         console.log(event);
     });
 
     navigator.usb.addEventListener('disconnect', event => {
         // Remove |event.device| from the UI.
         console.log('2');
-        console.log(event.device);
+        console.log(event.device.vendorId);
         console.log(event);
     });
 
@@ -56,9 +56,7 @@
     button.addEventListener('click', async () => {
         try {
             device = await navigator.usb.requestDevice({ filters: [{
-                    vendorId: 34148,
-                    classCode: 0xFF, // vendor-specific
-                    protocolCode: 0x01
+                    vendorId: 34148
                 }]});
         } catch (err) {
             // No device was selected.
@@ -68,8 +66,7 @@
 
         if (device !== undefined) {
             // Add |device| to the UI.
-            onsole.log('undefined err');
-            console.log(err)
+            console.log('undefined err');
         }
     });
 
