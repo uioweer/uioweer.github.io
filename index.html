@@ -57,7 +57,8 @@ TEST 4
               //.then(() => device.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
               .then(result => {
                 let decoder = new TextDecoder();
-                console.log('Received: ' + decoder.decode(result.data));
+                console.log(result);
+                console.log('Received: ' + decoder.decode(result));
               })
             .catch(error => { console.log(error); });
         } catch (err) {
