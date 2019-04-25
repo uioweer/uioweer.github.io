@@ -6,7 +6,7 @@
 </head>
 <body>
 <iframe allowpaymentrequest allow="usb fullscreen"></iframe>
-TEST 1
+TEST 2
 <button id="request-device">Connect</button>
 </body>
 
@@ -43,7 +43,7 @@ TEST 1
               return device.open();
             })
               .then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
-              //.then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
+              .then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
               //.then(() => device.controlTransferOut({
               //    requestType: 'class',
               //    recipient: 'interface',
