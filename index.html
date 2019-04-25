@@ -13,8 +13,8 @@
 
     let device;
 
-    navigator.usb.requestDevice({ filters: [] }).then(function (device) {
-        console.log(device);
+    navigator.usb.requestDevice().then(selectedDevice => {
+        console.log(selectedDevice);
     });
 
     // navigator.usb.requestDevice({ filters: [{ vendorId: 34148 }] })
